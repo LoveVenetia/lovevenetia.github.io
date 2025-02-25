@@ -1,86 +1,100 @@
-/* Import modern font */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+/* Importing modern font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-/* Enable smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Basic Reset */
+/* General Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
 }
 
-/* Body Styling */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Montserrat', sans-serif;
   background-color: #fff;
   color: #333;
+  line-height: 1.6;
 }
 
-/* Splash Section (Full Screen) */
-#splash {
-  min-height: 100vh;
-  background: #fff;
+/* Landing Section */
+#landing {
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border-bottom: 3px solid #e74c3c; /* Red accent */
+  background: url('your-background-image.jpg') no-repeat center center/cover;
+  position: relative;
 }
 
-.splash-content h1 {
-  font-size: 3em;
-  margin-bottom: 10px;
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 50px;
+  border-radius: 10px;
+  color: white;
 }
 
-.splash-content h2 {
-  font-size: 2em;
+.scroll-btn {
+  display: inline-block;
+  margin-top: 20px;
+  color: #e74c3c;
+  font-size: 1.5rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.scroll-btn:hover {
+  transform: translateY(5px);
+}
+
+/* Sections */
+section {
+  padding: 80px 10%;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2.5em;
   margin-bottom: 20px;
   color: #e74c3c;
 }
 
-.splash-content p {
-  font-size: 1.2em;
-  margin-bottom: 40px;
+.project-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-/* Scroll Button */
-.scroll-btn {
-  font-size: 2em;
-  text-decoration: none;
-  color: #e74c3c;
-  animation: bounce 2s infinite;
-}
-
-/* Simple bounce animation for the scroll button */
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(10px); }
-  60% { transform: translateY(5px); }
-}
-
-/* Visuals Section */
-#visuals {
-  min-height: 100vh;
+.project {
+  background: #fff;
+  border: 2px solid #e74c3c;
   padding: 20px;
-  background-color: #fff;
+  width: 30%;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Adjust canvas to full width of container */
-#myCanvas {
-  width: 100%;
-  height: 500px;  /* Adjust as needed for your visuals */
-  border: 1px solid #e74c3c; /* Red accent border for visual emphasis */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* Footer Styling */
+.stat {
+  background: #fff;
+  border: 2px solid #e74c3c;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Footer */
 footer {
   text-align: center;
-  padding: 10px;
-  border-top: 3px solid #e74c3c;
-  margin-top: 40px;
+  padding: 20px;
+  background: #333;
+  color: white;
 }
-
