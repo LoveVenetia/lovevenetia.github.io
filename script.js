@@ -1,4 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Loader
+  const loaderContainer = document.querySelector('.loader-container');
+  
+  // Hide loader after page loads
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      loaderContainer.classList.add('hidden');
+    }, 1500);
+  });
+  
+  // Mobile menu
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  
+  if (mobileMenuToggle && mobileMenu) {
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenuToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+    });
+    
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+      });
+    });
+  }
   // Initialize GSAP ScrollTrigger
   gsap.registerPlugin(ScrollTrigger);
   
@@ -179,6 +207,20 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Smooth scroll to sections
   navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+      
+      scrollContainer.scrollTo({
+        top: targetSection.offsetTop,
+        behavior: 'smooth'
+      });
+    });
+  });
+  
+  // Smooth scroll for mobile nav links
+  mobileNavLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetId = link.getAttribute('href');
