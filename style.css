@@ -1678,3 +1678,99 @@ footer {
 @keyframes rotate {
   0%, 100% { transform: none !important; }
 }
+
+/* Add these styles to the end of your CSS file to override the globe styling */
+
+/* More Earth-like Digital Globe */
+.digital-globe {
+  background: radial-gradient(circle at 30% 30%, rgba(30, 144, 255, 0.7), rgba(0, 51, 102, 0.9)) !important;
+  box-shadow: 0 0 60px rgba(0, 100, 255, 0.4), 
+              inset 0 0 60px rgba(255, 255, 255, 0.15) !important;
+}
+
+.globe-continents {
+  background-image: url("data:image/svg+xml,%3Csvg width='250' height='250' viewBox='0 0 250 250' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50,40 Q70,30 85,45 Q100,40 110,50 Q130,55 120,70 Q110,90 95,95 Q85,105 70,100 Q50,95 45,80 Q40,60 50,40' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M140,50 Q160,40 175,55 Q190,50 200,65 Q195,80 180,85 Q165,90 150,80 Q145,65 140,50' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M30,130 Q45,125 65,140 Q80,145 75,160 Q65,175 50,170 Q35,160 30,130' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M135,120 Q155,115 170,125 Q190,130 180,155 Q165,170 140,160 Q130,140 135,120' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M140,170 Q160,165 175,180 Q170,200 155,205 Q145,195 140,170' fill='%2372B01D' fill-opacity='0.7'/%3E%3C/svg%3E") !important;
+  opacity: 0.85 !important;
+}
+
+.globe-grid {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px) !important;
+  background-size: 15px 15px !important;
+  opacity: 0.4 !important;
+}
+
+/* Add equator and prime meridian lines */
+.globe-grid::before,
+.globe-grid::after {
+  content: '' !important;
+  position: absolute !important;
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.globe-grid::before {
+  /* Equator */
+  width: 100% !important;
+  height: 2px !important;
+  top: 50% !important;
+  left: 0 !important;
+}
+
+.globe-grid::after {
+  /* Prime Meridian */
+  width: 2px !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 50% !important;
+}
+
+/* Add cloud layer */
+.globe-atmosphere {
+  background: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E"),
+              radial-gradient(circle at center, transparent 50%, rgba(255, 255, 255, 0.2) 80%, rgba(255, 255, 255, 0) 100%) !important;
+  opacity: 0.5 !important;
+}
+
+/* Enhanced connection lines */
+.globe-connection {
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.7), transparent) !important;
+  height: 1.5px !important;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5) !important;
+}
+
+/* Enhanced dots */
+.globe-dot {
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.7) !important;
+}
+
+.globe-dot.highlight {
+  background-color: #00FFFF !important;
+  box-shadow: 0 0 8px #00FFFF, 0 0 16px #00FFFF !important;
+}
+
+.globe-dot.helsinki {
+  background-color: #FF5555 !important;
+  box-shadow: 0 0 8px #FF5555, 0 0 16px #FF5555 !important;
+}
+
+/* Hide the location label if that's the blue dot you mentioned */
+.globe-location {
+  display: none !important;
+}
+
+/* Add a subtle pulsing glow to the globe */
+@keyframes globeGlow {
+  0%, 100% {
+    box-shadow: 0 0 60px rgba(0, 100, 255, 0.4), 
+                inset 0 0 60px rgba(255, 255, 255, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 80px rgba(0, 150, 255, 0.6), 
+                inset 0 0 80px rgba(255, 255, 255, 0.25);
+  }
+}
+
+.digital-globe {
+  animation: globeGlow 5s infinite ease-in-out !important;
+}
