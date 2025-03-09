@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Force scroll to top when page loads
+  window.scrollTo(0, 0);
+  setTimeout(() => {
+    const scrollContainer = document.querySelector('.scroll-container');
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0;
+    }
+  }, 50);
+  
   // Loader
   const loaderContainer = document.querySelector('.loader-container');
   
@@ -27,89 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
+
   // Initialize GSAP ScrollTrigger
   gsap.registerPlugin(ScrollTrigger);
   
-  // Remove old cursor elements
-  const oldCursor = document.querySelector('.cursor');
-  const oldCursorFollower = document.querySelector('.cursor-follower');
-  if (oldCursor) oldCursor.remove();
-  if (oldCursorFollower) oldCursorFollower.remove();
-  
-  // Create heat trail cursor effect
+  // Create cursor container for heart particles only (no dot)
   const cursorContainer = document.createElement('div');
   cursorContainer.className = 'cursor-container';
   document.body.appendChild(cursorContainer);
-  
-  // Create cursor dot
-  const cursor = document.createElement('div');
-  cursor.className = 'cursor-dot';
-  document.body.appendChild(cursor);
-  
-  // Track mouse position
-  let mouseX = 0;
-  let mouseY = 0;
-  
-  // Particles array
-  const particles = [];
-  
-  // Tracking previous positions for smoother trail
-  const previousPositions = [];
-  const maxPrevPositions = 5;
-  
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    // Update cursor dot position
-    cursor.style.left = `${mouseX}px`;
-    cursor.style.top = `${mouseY}px`;
-    
-    // Store previous positions for trail effect
-    previousPositions.unshift({ x: mouseX, y: mouseY });
-    if (previousPositions.length > maxPrevPositions) {
-      previousPositions.pop();
-    }
-    
-    // Create heat particle at an interval
-    if (Math.random() < 0.3) {
-      createHeatParticle();
-    }
-  });
-  
-  // Create heat particle
-  function createHeatParticle() {
-    // Use a previous position for smoother trail
-    const index = Math.floor(Math.random() * Math.min(previousPositions.length, 3));
-    const position = previousPositions[index] || { x: mouseX, y: mouseY };
-    
-    const particle = document.createElement('div');
-    particle.className = 'heat-particle';
-    
-    // Randomize particle properties
-    const size = Math.random() * 15 + 5;
-    const duration = Math.random() * 1 + 0.5;
-    const xOffset = (Math.random() - 0.5) * 20;
-    const yOffset = (Math.random() - 0.5) * 20;
-    
-    particle.style.width = `${size}px`;
-    particle.style.height = `${size}px`;
-    particle.style.left = `${position.x + xOffset}px`;
-    particle.style.top = `${position.y + yOffset}px`;
-    
-    // Add to DOM
-    cursorContainer.appendChild(particle);
-    
-    // Animate and remove
-    gsap.to(particle, {
-      opacity: 0,
-      scale: 0,
-      duration: duration,
-      onComplete: () => {
-        particle.remove();
-      }
-    });
-  }
   
   // Create heart particle on click
   document.addEventListener('click', (e) => {
@@ -148,19 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  
-  // Custom cursor effects on interactive elements
-  const interactiveElements = document.querySelectorAll('a, button, .project-card, .stat-card, input, textarea');
-  
-  interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('cursor-hover');
-    });
-    
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('cursor-hover');
-    });
-  });
   
   // Smooth scroll navigation
   const scrollContainer = document.querySelector('.scroll-container');
@@ -283,48 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Animate stats counters
-  const statNumbers = document.querySelectorAll('.stat-number');
-  
-  function animateCounter(element, target, duration) {
-    let start = 0;
-    const increment = target / (duration / 16); // 60fps
-    const formatter = new Intl.NumberFormat('en-US');
-    
-    function updateCounter() {
-      start += increment;
-      
-      if (start >= target) {
-        // Format large numbers with + for million+
-        if (target >= 1000000) {
-          element.textContent = (target / 1000000).toFixed(1) + 'M+';
-        } else if (target >= 1000) {
-          element.textContent = formatter.format(Math.floor(target));
-        } else {
-          element.textContent = formatter.format(target);
-        }
-        return;
-      }
-      
-      // Format large numbers with + for million+
-      if (target >= 1000000) {
-        if (start >= 1000000) {
-          element.textContent = (start / 1000000).toFixed(1) + 'M+';
-        } else {
-          element.textContent = formatter.format(Math.floor(start));
-        }
-      } else if (target >= 1000) {
-        element.textContent = formatter.format(Math.floor(start));
-      } else {
-        element.textContent = Math.floor(start);
-      }
-      
-      requestAnimationFrame(updateCounter);
-    }
-    
-    updateCounter();
-  }
-  
   // Animate elements on scroll
   sections.forEach((section, index) => {
     const elements = section.querySelectorAll('.content-wrapper > *');
@@ -373,7 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initialize glitch effect
   const glitchElement = document.querySelector('.glitch');
-  glitchElement.setAttribute('data-text', glitchElement.textContent);
+  if (glitchElement) {
+    glitchElement.setAttribute('data-text', glitchElement.textContent);
+  }
   
   // Audio visualizer animation (simulated)
   setInterval(() => {
@@ -520,21 +401,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Call the globe initialization
   setTimeout(initDigitalGlobe, 500);
   
-  // Form input animation
-  const formInputs = document.querySelectorAll('.form-input, .form-textarea');
-  
-  formInputs.forEach(input => {
-    input.addEventListener('focus', () => {
-      input.parentElement.classList.add('focused');
-    });
-    
-    input.addEventListener('blur', () => {
-      if (input.value.trim() === '') {
-        input.parentElement.classList.remove('focused');
-      }
-    });
-  });
-  
   // Project cards modal functionality
   const initModalSystem = () => {
     console.log("Initializing modal system...");
@@ -563,6 +429,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modal) {
           modalContainer.classList.add('active');
           modal.classList.add('active');
+          
+          // If it's the music modal, try to reload the Spotify frame
+          if (projectType === 'music') {
+            const spotifyFrame = modal.querySelector('iframe');
+            if (spotifyFrame) {
+              const src = spotifyFrame.src;
+              spotifyFrame.src = src;
+            }
+          }
           
           // Disable scroll on body
           document.body.style.overflow = 'hidden';
@@ -599,8 +474,62 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Modal system initialized successfully");
   };
   
-  // Call the modal initialization
+  // Call the modal initialization with a longer delay
   setTimeout(initModalSystem, 1000);
+  
+  function animateCounter(element, target, duration) {
+    let start = 0;
+    const increment = target / (duration / 16); // 60fps
+    const formatter = new Intl.NumberFormat('en-US');
+    
+    function updateCounter() {
+      start += increment;
+      
+      if (start >= target) {
+        // Format large numbers with + for million+
+        if (target >= 1000000) {
+          element.textContent = (target / 1000000).toFixed(1) + 'M+';
+        } else if (target >= 1000) {
+          element.textContent = formatter.format(Math.floor(target));
+        } else {
+          element.textContent = formatter.format(target);
+        }
+        return;
+      }
+      
+      // Format large numbers with + for million+
+      if (target >= 1000000) {
+        if (start >= 1000000) {
+          element.textContent = (start / 1000000).toFixed(1) + 'M+';
+        } else {
+          element.textContent = formatter.format(Math.floor(start));
+        }
+      } else if (target >= 1000) {
+        element.textContent = formatter.format(Math.floor(start));
+      } else {
+        element.textContent = Math.floor(start);
+      }
+      
+      requestAnimationFrame(updateCounter);
+    }
+    
+    updateCounter();
+  }
+  
+  // Form input animation
+  const formInputs = document.querySelectorAll('.form-input, .form-textarea');
+  
+  formInputs.forEach(input => {
+    input.addEventListener('focus', () => {
+      input.parentElement.classList.add('focused');
+    });
+    
+    input.addEventListener('blur', () => {
+      if (input.value.trim() === '') {
+        input.parentElement.classList.remove('focused');
+      }
+    });
+  });
   
   // Initialize scrolling to first section
   currentSectionIndex = 0;
