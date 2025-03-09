@@ -1,14 +1,4 @@
-#landing .content-wrapper {
-  max-width: 1200px;
-  width: 90%;
-  z-index: 2;
-  position: relative;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}/* Importing modern fonts */
+/* Importing modern fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Space+Grotesk:wght@300;400;700&display=swap');
 
 /* Custom Properties */
@@ -348,6 +338,19 @@ body {
   background: linear-gradient(135deg, var(--dark-color), var(--primary-color));
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.landing-content {
+  max-width: 800px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
 }
 
 .logo-video {
@@ -407,6 +410,7 @@ body {
   animation: glitch-skew 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite alternate-reverse;
   font-family: 'Montserrat', sans-serif;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .glitch::before,
@@ -474,6 +478,7 @@ body {
   margin-bottom: 20px;
   opacity: 0.9;
   font-weight: 300;
+  text-align: center;
 }
 
 .intro-text {
@@ -481,16 +486,9 @@ body {
   font-size: 1.1rem;
   margin-bottom: 40px;
   opacity: 0.8;
-}
-
-.center-content {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  text-align: center !important;
-  width: 90% !important;
-  max-width: 800px !important;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .scroll-indicator {
@@ -912,14 +910,18 @@ body {
   cursor: pointer;
 }
 
-/* Remove the light effect for better performance */
+/* No animations for project cards */
 .project-card::before {
-  display: none;
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 @keyframes rotate {
   100% {
-    transform: rotate(1turn);
+    transform: none;
   }
 }
 
