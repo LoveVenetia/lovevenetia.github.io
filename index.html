@@ -1,4 +1,51 @@
-<!DOCTYPE html>
+<div class="projects-container">
+          <div class="project-card" data-project="music">
+            <div class="project-icon music-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="2"/>
+                <circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Venetia Music Projects</h3>
+            <p>Executive producer of multiple albums featuring top Finnish artists.</p>
+            <div class="project-overlay">
+              <span class="view-more">Click for more</span>
+            </div>
+          </div>
+          <div class="project-card" data-project="events">
+            <div class="project-icon event-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 16L11 18L15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Venetia Live Events</h3>
+            <p>Organizer of music events, club nights, and cultural gatherings.</p>
+            <div class="project-overlay">
+              <span class="view-more">Click for more</span>
+            </div>
+          </div>
+          <div class="project-card" data-project="social">
+            <div class="project-icon social-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.59 13.51L15.42 17.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Social Media Branding</h3>
+            <p>Created and grew LoveVenetia as a digital brand, merging music and internet culture.</p>
+            <div class="project-overlay">
+              <span class="view-more">Click for more</span>
+            </div>
+          </div>
+        </div><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -219,6 +266,126 @@
   <footer>
     <p>&copy; 2025 Venetia | All Rights Reserved</p>
   </footer>
+
+  <!-- Modal System -->
+  <div class="modal-container">
+    <div class="modal-backdrop"></div>
+    
+    <!-- Music Projects Modal -->
+    <div class="modal-content" id="music-modal">
+      <div class="modal-header">
+        <h3>Venetia Music Projects</h3>
+        <button class="close-modal">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="spotify-container">
+          <!-- Replace this with your actual Spotify embed code -->
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/REPLACE_WITH_YOUR_SPOTIFY_ID?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        <div class="project-description">
+          <h4>My Music Production Work</h4>
+          <p>As Venetia, I've collaborated with various Finnish artists to produce tracks that blend electronic elements with traditional Finnish sounds. My production style focuses on creating atmospheric soundscapes that tell a story.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Events Modal -->
+    <div class="modal-content" id="events-modal">
+      <div class="modal-header">
+        <h3>Venetia Live Events</h3>
+        <button class="close-modal">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="events-gallery">
+          <div class="event-flyer">
+            <!-- Replace with your actual event flyer images -->
+            <img src="/api/placeholder/400/600" alt="Event Flyer 1">
+            <div class="event-info">
+              <h4>Venetia Live: Helsinki Underground</h4>
+              <p>Summer 2024</p>
+            </div>
+          </div>
+          <div class="event-flyer">
+            <img src="/api/placeholder/400/600" alt="Event Flyer 2">
+            <div class="event-info">
+              <h4>Finnish Music Showcase</h4>
+              <p>Spring 2024</p>
+            </div>
+          </div>
+          <div class="event-flyer">
+            <img src="/api/placeholder/400/600" alt="Event Flyer 3">
+            <div class="event-info">
+              <h4>Northern Beats Festival</h4>
+              <p>Fall 2023</p>
+            </div>
+          </div>
+          <div class="event-flyer">
+            <img src="/api/placeholder/400/600" alt="Event Flyer 4">
+            <div class="event-info">
+              <h4>Helsinki Night Club Tour</h4>
+              <p>Winter 2023</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Social Media Modal -->
+    <div class="modal-content" id="social-modal">
+      <div class="modal-header">
+        <h3>Social Media Branding</h3>
+        <button class="close-modal">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="social-profiles">
+          <div class="social-profile">
+            <div class="social-icon-large instagram">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+                <circle cx="18" cy="6" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="social-info">
+              <h4>Instagram</h4>
+              <p>Follow my visual journey through music and events.</p>
+              <a href="https://www.instagram.com/lovevenetia/?hl=en" target="_blank" class="social-link">@lovevenetia</a>
+            </div>
+          </div>
+          <div class="social-profile">
+            <div class="social-icon-large tiktok">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12C6.23858 12 4 14.2386 4 17C4 19.7614 6.23858 22 9 22C11.7614 22 14 19.7614 14 17V12H9Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 12V5C14 3.89543 14.8954 3 16 3H19" stroke="currentColor" stroke-width="2"/>
+                <path d="M19 8C15 5 14 12 14 12" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <div class="social-info">
+              <h4>TikTok</h4>
+              <p>Short music clips, behind-the-scenes, and event highlights.</p>
+              <a href="https://www.tiktok.com/@lovevenetia?lang=en" target="_blank" class="social-link">@lovevenetia</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
 
   <script src="script.js"></script>
 </body>
