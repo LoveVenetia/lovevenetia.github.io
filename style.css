@@ -19,6 +19,7 @@ body {
   animation: gradient 15s ease infinite;
   color: #333;
   line-height: 1.6;
+  text-align: center;
 }
 
 @keyframes gradient {
@@ -33,15 +34,22 @@ body {
   }
 }
 
-
 /* Landing Section */
 #landing {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   text-align: center;
   position: relative;
+}
+
+/* Logo Video */
+.logo-video {
+  width: 200px; /* Adjust size as needed */
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .overlay {
