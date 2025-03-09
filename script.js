@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 50);
   
+  // Kill all animations on project cards
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.style.animation = 'none';
+    card.style.transition = 'transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease';
+  });
+  
   // Loader
   const loaderContainer = document.querySelector('.loader-container');
   
@@ -157,12 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Scroll indicator click
   const scrollIndicator = document.querySelector('.scroll-indicator');
   
-  scrollIndicator.addEventListener('click', () => {
-    scrollContainer.scrollTo({
-      top: sections[1].offsetTop,
-      behavior: 'smooth'
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', () => {
+      scrollContainer.scrollTo({
+        top: sections[1].offsetTop,
+        behavior: 'smooth'
+      });
     });
-  });
+  }
   
   // Auto-scroll to section on mouse wheel
   let isScrolling = false;
