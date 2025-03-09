@@ -1587,3 +1587,94 @@ footer {
   transform: translateY(0);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
+#landing {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  height: 100vh !important;
+  width: 100vw !important;
+}
+
+.centered-content {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 90% !important;
+  max-width: 800px !important;
+  text-align: center !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+}
+
+#landing .glitch, 
+#landing .subtitle, 
+#landing .intro-text {
+  width: 100% !important;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Fixed scroll indicator position */
+.scroll-indicator {
+  position: absolute !important;
+  bottom: 40px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 10px !important;
+  z-index: 10 !important;
+}
+
+/* Fix mobile clipping issues */
+@media (max-width: 768px) {
+  .panel {
+    padding: 40px 0 !important;
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+  
+  .content-wrapper {
+    padding: 20px !important;
+    margin: 40px auto !important;
+  }
+  
+  .about-content, 
+  .stats-container, 
+  .projects-container,
+  .contact-container {
+    gap: 40px !important;
+  }
+  
+  .about-content {
+    margin-top: 40px !important;
+  }
+  
+  .digital-globe-container {
+    margin: 20px auto !important;
+  }
+  
+  .about-text {
+    padding: 0 20px !important;
+  }
+}
+
+/* Make sure project cards have no animations */
+.project-card::before {
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+  opacity: 0 !important;
+}
+
+/* Override any rotate animations */
+@keyframes rotate {
+  0%, 100% { transform: none !important; }
+}
