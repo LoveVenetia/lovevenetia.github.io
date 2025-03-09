@@ -191,60 +191,107 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Scroll indicator click
-  const scrollIndicator = document.querySelector('.scroll-indicator');
-  
-  scrollIndicator.addEventListener('click', () => {
-    scrollContainer.scrollTo({
-      top: sections[1].offsetTop,
-      behavior: 'smooth'
-    });
-  });
-  
-  // Auto-scroll to section on mouse wheel
-  let isScrolling = false;
-  let currentSectionIndex = 0;
-  
-  scrollContainer.addEventListener('wheel', (e) => {
-    e.preventDefault();
+  // Digital Globe Effect - Initialize immediately
+  const initDigitalGlobe = () => {
+    console.log("Initializing digital globe...");
+    const globeDotsContainer = document.querySelector('.globe-dots');
+    const globeConnectionsContainer = document.querySelector('.globe-connections');
     
-    if (isScrolling) return;
-    
-    isScrolling = true;
-    
-    if (e.deltaY > 0 && currentSectionIndex < sections.length - 1) {
-      // Scroll down
-      currentSectionIndex++;
-    } else if (e.deltaY < 0 && currentSectionIndex > 0) {
-      // Scroll up
-      currentSectionIndex--;
+    if (!globeDotsContainer) {
+      console.log("Globe dots container not found");
+      return;
     }
     
-    scrollContainer.scrollTo({
-      top: sections[currentSectionIndex].offsetTop,
-      behavior: 'smooth'
+    // Clear any existing dots
+    globeDotsContainer.innerHTML = '';
+    globeConnectionsContainer.innerHTML = '';
+    
+    // Generate random dots on the globe
+    const numDots = 60;
+    const dots = [];
+    const highlightDots = [];
+    const radius = 125; // Half the globe width
+    
+    // Generate main highlight dot for Helsinki
+    const helsinkiDot = createDotElement(60, 30, true);
+    dots.push({ x: 60, y: 30, el: helsinkiDot });
+    highlightDots.push({ x: 60, y: 30, el: helsinkiDot });
+    globeDotsContainer.appendChild(helsinkiDot);
+    
+    // Generate other highlight dots for key music cities
+    const musicCities = [
+      { x: 45, y: 50 },  // London
+      { x: 20, y: 40 },  // New York
+      { x: 75, y: 60 },  // Tokyo
+      { x: 50, y: 25 },  // Stockholm
+      { x: 48, y: 45 }   // Berlin
+    ];
+    
+    musicCities.forEach(city => {
+      const dot = createDotElement(city.x, city.y, true);
+      dots.push({ x: city.x, y: city.y, el: dot });
+      highlightDots.push({ x: city.x, y: city.y, el: dot });
+      globeDotsContainer.appendChild(dot);
     });
     
-    setTimeout(() => {
-      isScrolling = false;
-    }, 1000);
-  }, { passive: false });
-  
-  // Update current section index on manual scroll
-  scrollContainer.addEventListener('scroll', () => {
-    const currentPosition = scrollContainer.scrollTop;
+    // Generate regular dots
+    for (let i = 0; i < numDots; i++) {
+      // Generate dot within circle bounds
+      let x, y, distFromCenter;
+      do {
+        x = Math.random() * 100;
+        y = Math.random() * 100;
+        const centerX = 50;
+        const centerY = 50;
+        distFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+      } while (distFromCenter > 45); // Keep dots within radius
+      
+      const dot = createDotElement(x, y, false);
+      dots.push({ x, y, el: dot });
+      globeDotsContainer.appendChild(dot);
+    }
     
-    sections.forEach((section, index) => {
-      if (Math.abs(section.offsetTop - currentPosition) < 100) {
-        currentSectionIndex = index;
+    // Create connections between highlight dots
+    highlightDots.forEach((dot1, i) => {
+      highlightDots.forEach((dot2, j) => {
+        if (i < j) { // Connect each pair only once
+          createConnection(dot1, dot2, globeConnectionsContainer);
+        }
+      });
+    });
+    
+    // Rotate the globe over time
+    let angle = 0;
+    const rotateGlobe = () => {
+      // Slight wobble effect
+      const wobbleX = Math.sin(Date.now() / 2000) * 5;
+      const wobbleY = Math.cos(Date.now() / 3000) * 3;
+      
+      const globe = document.querySelector('.digital-globe');
+      if (globe) {
+        globe.style.transform = `rotateY(${wobbleX}deg) rotateX(${wobbleY}deg)`;
       }
-    });
+      
+      requestAnimationFrame(rotateGlobe);
+    };
+    
+    rotateGlobe();
+    console.log("Digital globe initialized successfully");
+  };
+  
+  // Explicitly call the globe initialization
+  setTimeout(initDigitalGlobe, 500);
+  
+  // Re-initialize globe when About section enters viewport
+  ScrollTrigger.create({
+    trigger: "#about",
+    scroller: scrollContainer,
+    start: "top center",
+    onEnter: initDigitalGlobe,
+    onEnterBack: initDigitalGlobe
   });
   
-  // Animate stats counters
-  const statNumbers = document.querySelectorAll('.stat-number');
-  
-  function animateCounter(element, target, duration) {
+  function createDotElement(x, y, isHighlight) {
     let start = 0;
     const increment = target / (duration / 16); // 60fps
     const formatter = new Intl.NumberFormat('en-US');
