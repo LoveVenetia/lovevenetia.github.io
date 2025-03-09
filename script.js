@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const highlightDots = [];
     
     // Generate main highlight dot for Helsinki
-    const helsinkiDot = createDotElement(60, 30, true);
+    const helsinkiDot = createDotElement(60, 30, true, true);
     dots.push({ x: 60, y: 30, el: helsinkiDot });
     highlightDots.push({ x: 60, y: 30, el: helsinkiDot });
     globeDotsContainer.appendChild(helsinkiDot);
@@ -414,9 +414,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Rotate the globe over time
     let angle = 0;
     const rotateGlobe = () => {
-      // Slight wobble effect
-      const wobbleX = Math.sin(Date.now() / 2000) * 5;
-      const wobbleY = Math.cos(Date.now() / 3000) * 3;
+      // More pronounced 3D effect with dynamic wobble
+      const time = Date.now() / 1000;
+      const wobbleX = Math.sin(time * 0.5) * 10;
+      const wobbleY = Math.cos(time * 0.3) * 5;
       
       const globe = document.querySelector('.digital-globe');
       if (globe) {
@@ -430,9 +431,13 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Digital globe initialized successfully");
   }
   
-  function createDotElement(x, y, isHighlight) {
+  function createDotElement(x, y, isHighlight, isHelsinki = false) {
     const dot = document.createElement('div');
-    dot.className = isHighlight ? 'globe-dot highlight' : 'globe-dot';
+    if (isHelsinki) {
+      dot.className = 'globe-dot helsinki';
+    } else {
+      dot.className = isHighlight ? 'globe-dot highlight' : 'globe-dot';
+    }
     dot.style.left = `${x}%`;
     dot.style.top = `${y}%`;
     
@@ -489,53 +494,71 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   // Project cards modal functionality
-  const projectCards = document.querySelectorAll('.project-card');
-  const modalContainer = document.querySelector('.modal-container');
-  const modalBackdrop = document.querySelector('.modal-backdrop');
-  const closeModalButtons = document.querySelectorAll('.close-modal');
-  const modalContents = document.querySelectorAll('.modal-content');
-  
-  // Open modal when clicking on project card
-  projectCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const projectType = card.getAttribute('data-project');
-      const modal = document.getElementById(`${projectType}-modal`);
-      
-      if (modal) {
-        modalContainer.classList.add('active');
-        modal.classList.add('active');
+  const initModalSystem = () => {
+    console.log("Initializing modal system...");
+    const projectCards = document.querySelectorAll('.project-card');
+    const modalContainer = document.querySelector('.modal-container');
+    const modalBackdrop = document.querySelector('.modal-backdrop');
+    const closeModalButtons = document.querySelectorAll('.close-modal');
+    const modalContents = document.querySelectorAll('.modal-content');
+    
+    if (!projectCards.length || !modalContainer || !modalBackdrop) {
+      console.log("Modal elements not found, retrying in 500ms");
+      setTimeout(initModalSystem, 500);
+      return;
+    }
+    
+    console.log(`Found ${projectCards.length} project cards and modal system elements`);
+    
+    // Open modal when clicking on project card
+    projectCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const projectType = card.getAttribute('data-project');
+        const modal = document.getElementById(`${projectType}-modal`);
         
-        // Disable scroll on body
-        document.body.style.overflow = 'hidden';
-      }
-    });
-  });
-  
-  // Close modal function
-  function closeModal() {
-    modalContainer.classList.remove('active');
-    modalContents.forEach(modal => {
-      modal.classList.remove('active');
+        console.log(`Card clicked: ${projectType}, Modal found: ${!!modal}`);
+        
+        if (modal) {
+          modalContainer.classList.add('active');
+          modal.classList.add('active');
+          
+          // Disable scroll on body
+          document.body.style.overflow = 'hidden';
+        }
+      });
     });
     
-    // Re-enable scroll on body
-    document.body.style.overflow = '';
-  }
-  
-  // Close modal when clicking close button
-  closeModalButtons.forEach(button => {
-    button.addEventListener('click', closeModal);
-  });
-  
-  // Close modal when clicking backdrop
-  modalBackdrop.addEventListener('click', closeModal);
-  
-  // Close modal when pressing Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeModal();
+    // Close modal function
+    function closeModal() {
+      modalContainer.classList.remove('active');
+      modalContents.forEach(modal => {
+        modal.classList.remove('active');
+      });
+      
+      // Re-enable scroll on body
+      document.body.style.overflow = '';
     }
-  });
+    
+    // Close modal when clicking close button
+    closeModalButtons.forEach(button => {
+      button.addEventListener('click', closeModal);
+    });
+    
+    // Close modal when clicking backdrop
+    modalBackdrop.addEventListener('click', closeModal);
+    
+    // Close modal when pressing Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+    
+    console.log("Modal system initialized successfully");
+  };
+  
+  // Call the modal initialization
+  setTimeout(initModalSystem, 1000);
   
   // Initialize scrolling to first section
   currentSectionIndex = 0;
