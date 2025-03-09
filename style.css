@@ -483,6 +483,16 @@ body {
   opacity: 0.8;
 }
 
+.center-content {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+  width: 90% !important;
+  max-width: 800px !important;
+}
+
 .scroll-indicator {
   position: absolute;
   bottom: 40px;
