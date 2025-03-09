@@ -247,16 +247,36 @@ document.addEventListener('DOMContentLoaded', () => {
   function animateCounter(element, target, duration) {
     let start = 0;
     const increment = target / (duration / 16); // 60fps
+    const formatter = new Intl.NumberFormat('en-US');
     
     function updateCounter() {
       start += increment;
       
       if (start >= target) {
-        element.textContent = target.toLocaleString();
+        // Format large numbers with + for million+
+        if (target >= 1000000) {
+          element.textContent = (target / 1000000).toFixed(1) + 'M+';
+        } else if (target >= 1000) {
+          element.textContent = formatter.format(Math.floor(target));
+        } else {
+          element.textContent = formatter.format(target);
+        }
         return;
       }
       
-      element.textContent = Math.floor(start).toLocaleString();
+      // Format large numbers with + for million+
+      if (target >= 1000000) {
+        if (start >= 1000000) {
+          element.textContent = (start / 1000000).toFixed(1) + 'M+';
+        } else {
+          element.textContent = formatter.format(Math.floor(start));
+        }
+      } else if (target >= 1000) {
+        element.textContent = formatter.format(Math.floor(start));
+      } else {
+        element.textContent = Math.floor(start);
+      }
+      
       requestAnimationFrame(updateCounter);
     }
     
@@ -316,6 +336,130 @@ document.addEventListener('DOMContentLoaded', () => {
       bar.style.height = `${randomHeight}px`;
     });
   }, 100);
+  
+  // Digital Globe Effect
+  const initDigitalGlobe = () => {
+    const globeDotsContainer = document.querySelector('.globe-dots');
+    const globeConnectionsContainer = document.querySelector('.globe-connections');
+    
+    if (!globeDotsContainer) return;
+    
+    // Clear any existing dots
+    globeDotsContainer.innerHTML = '';
+    globeConnectionsContainer.innerHTML = '';
+    
+    // Generate random dots on the globe
+    const numDots = 60;
+    const dots = [];
+    const highlightDots = [];
+    const radius = 125; // Half the globe width
+    
+    // Generate main highlight dot for Helsinki
+    const helsinkiDot = createDotElement(60, 30, true);
+    dots.push({ x: 60, y: 30, el: helsinkiDot });
+    highlightDots.push({ x: 60, y: 30, el: helsinkiDot });
+    globeDotsContainer.appendChild(helsinkiDot);
+    
+    // Generate other highlight dots for key music cities
+    const musicCities = [
+      { x: 45, y: 50 },  // London
+      { x: 20, y: 40 },  // New York
+      { x: 75, y: 60 },  // Tokyo
+      { x: 50, y: 25 },  // Stockholm
+      { x: 48, y: 45 }   // Berlin
+    ];
+    
+    musicCities.forEach(city => {
+      const dot = createDotElement(city.x, city.y, true);
+      dots.push({ x: city.x, y: city.y, el: dot });
+      highlightDots.push({ x: city.x, y: city.y, el: dot });
+      globeDotsContainer.appendChild(dot);
+    });
+    
+    // Generate regular dots
+    for (let i = 0; i < numDots; i++) {
+      // Generate dot within circle bounds
+      let x, y, distFromCenter;
+      do {
+        x = Math.random() * 100;
+        y = Math.random() * 100;
+        const centerX = 50;
+        const centerY = 50;
+        distFromCenter = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
+      } while (distFromCenter > 45); // Keep dots within radius
+      
+      const dot = createDotElement(x, y, false);
+      dots.push({ x, y, el: dot });
+      globeDotsContainer.appendChild(dot);
+    }
+    
+    // Create connections between highlight dots
+    highlightDots.forEach((dot1, i) => {
+      highlightDots.forEach((dot2, j) => {
+        if (i < j) { // Connect each pair only once
+          createConnection(dot1, dot2, globeConnectionsContainer);
+        }
+      });
+    });
+    
+    // Rotate the globe over time
+    let angle = 0;
+    const rotateGlobe = () => {
+      // Slight wobble effect
+      const wobbleX = Math.sin(Date.now() / 2000) * 5;
+      const wobbleY = Math.cos(Date.now() / 3000) * 3;
+      
+      document.querySelector('.digital-globe').style.transform = 
+        `rotateY(${wobbleX}deg) rotateX(${wobbleY}deg)`;
+      
+      requestAnimationFrame(rotateGlobe);
+    };
+    
+    rotateGlobe();
+  };
+  
+  function createDotElement(x, y, isHighlight) {
+    const dot = document.createElement('div');
+    dot.className = isHighlight ? 'globe-dot highlight' : 'globe-dot';
+    dot.style.left = `${x}%`;
+    dot.style.top = `${y}%`;
+    
+    if (isHighlight) {
+      // Add pulse animation for highlight dots
+      dot.style.animation = 'blink 2s infinite';
+    }
+    
+    return dot;
+  }
+  
+  function createConnection(dot1, dot2, container) {
+    const connection = document.createElement('div');
+    connection.className = 'globe-connection';
+    
+    // Calculate position and length
+    const x1 = dot1.x;
+    const y1 = dot1.y;
+    const x2 = dot2.x;
+    const y2 = dot2.y;
+    
+    const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+    
+    // Set connection style
+    connection.style.width = `${length}%`;
+    connection.style.left = `${x1}%`;
+    connection.style.top = `${y1}%`;
+    connection.style.transform = `rotate(${angle}deg)`;
+    
+    // Set random animation delay
+    connection.style.animationDelay = `${Math.random() * 5}s`;
+    
+    container.appendChild(connection);
+    return connection;
+  }
+  
+  // Initialize the digital globe
+  initDigitalGlobe();
   
   // Form input animation
   const formInputs = document.querySelectorAll('.form-input, .form-textarea');
