@@ -5,91 +5,202 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Venetia | Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Space+Grotesk:wght@300;400;700&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
 </head>
 <body>
   <!-- Navigation Bar -->
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+  
   <nav class="navbar">
-    <a href="#about" class="nav-link">About</a>
-    <a href="#projects" class="nav-link">Projects</a>
-    <a href="#stats" class="nav-link">Stats</a>
-    <a href="#contact" class="nav-link">Contact</a>
+    <div class="nav-logo">V</div>
+    <div class="nav-links">
+      <a href="#landing" class="nav-link active">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#stats" class="nav-link">Stats</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-progress"></div>
   </nav>
 
-  <!-- Landing Section -->
-  <section id="landing">
-    <video autoplay muted loop playsinline class="logo-video">
-    <source src="logo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-    </video>
+  <div class="scroll-container">
+    <!-- Landing Section -->
+    <section id="landing" class="panel">
+      <div class="noise-overlay"></div>
+      <div class="audio-visualizer">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <video autoplay muted loop playsinline class="logo-video">
+        <source src="logo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="content-wrapper">
+        <h1 class="glitch" data-text="Venetia">Venetia</h1>
+        <h2 class="subtitle">Music & Creative Portfolio</h2>
+        <p class="intro-text">Welcome to my world of music, events, and creative storytelling.</p>
+        <div class="scroll-indicator">
+          <div class="mouse">
+            <div class="wheel"></div>
+          </div>
+          <div class="arrow">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="overlay">
-      <h1>Venetia</h1>
-      <h2>Music & Creative Portfolio</h2>
-      <p>Welcome to my world of music, events, and creative storytelling.</p>
-      <a href="#about" class="scroll-btn">&#x2193; Explore</a>
-    </div>
-  </section>
+    <!-- About Me Section -->
+    <section id="about" class="panel">
+      <div class="noise-overlay"></div>
+      <div class="content-wrapper">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+          <div class="about-image">
+            <div class="image-frame"></div>
+          </div>
+          <div class="about-text">
+            <p>Hey! I am Saku, also known by artist name Venetia. Based in Helsinki, Finland, but a citizen of the world. I have worked in music, event organizing, and social media.</p>
+            <p>Currently I am also studying for bachelors in computer science at Haaga-Helia in Helsinki. This webpage portfolio is one of my school projects as well!</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- About Me Section -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Hey! I am Saku, also known by artist name Venetia. Based in Helsinki, Finland, but a citizen of the world. I have worked in music, event organizing, and social media. Currently I am also studying for bachelors in computer science at Haaga-Helia in Helsinki. This webpage portfolio is one of my school projects as well!</p>
-  </section>
+    <!-- Creative Projects Section -->
+    <section id="projects" class="panel">
+      <div class="noise-overlay"></div>
+      <div class="content-wrapper">
+        <h2 class="section-title">Creative Projects</h2>
+        <div class="projects-container">
+          <div class="project-card">
+            <div class="project-icon music-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="2"/>
+                <circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>Venetia Music Projects</h3>
+            <p>Executive producer of multiple albums featuring top Finnish artists.</p>
+          </div>
+          <div class="project-card">
+            <div class="project-icon event-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 10H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 16L11 18L15 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Venetia Live Events</h3>
+            <p>Organizer of music events, club nights, and cultural gatherings.</p>
+          </div>
+          <div class="project-card">
+            <div class="project-icon social-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 8C19.6569 8 21 6.65685 21 5C21 3.34315 19.6569 2 18 2C16.3431 2 15 3.34315 15 5C15 6.65685 16.3431 8 18 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 15C7.65685 15 9 13.6569 9 12C9 10.3431 7.65685 9 6 9C4.34315 9 3 10.3431 3 12C3 13.6569 4.34315 15 6 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18 22C19.6569 22 21 20.6569 21 19C21 17.3431 19.6569 16 18 16C16.3431 16 15 17.3431 15 19C15 20.6569 16.3431 22 18 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.59 13.51L15.42 17.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M15.41 6.51L8.59 10.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Social Media Branding</h3>
+            <p>Created and grew LoveVenetia as a digital brand, merging music and internet culture.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Creative Projects Section -->
-  <section id="projects">
-    <h2>Creative Projects</h2>
-    <div class="project-container">
-      <div class="project">
-        <h3>Venetia Music Projects</h3>
-        <p>Executive producer of multiple albums featuring top Finnish artists.</p>
+    <!-- Stats & Achievements -->
+    <section id="stats" class="panel">
+      <div class="noise-overlay"></div>
+      <div class="content-wrapper">
+        <h2 class="section-title">Stats & Achievements</h2>
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-number" data-count="3950">0</div>
+            <div class="stat-label">Followers</div>
+            <svg class="stat-icon" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke-width="5"/>
+            </svg>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="426700">0</div>
+            <div class="stat-label">Streams</div>
+            <svg class="stat-icon" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke-width="5"/>
+            </svg>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="4">0</div>
+            <div class="stat-label">Live Events</div>
+            <svg class="stat-icon" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke-width="5"/>
+            </svg>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="15">0</div>
+            <div class="stat-label">Creative Projects</div>
+            <svg class="stat-icon" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" fill="none" stroke-width="5"/>
+            </svg>
+          </div>
+        </div>
       </div>
-      <div class="project">
-        <h3>Venetia Live Events</h3>
-        <p>Organizer of music events, club nights, and cultural gatherings.</p>
-      </div>
-      <div class="project">
-        <h3>Social Media Branding</h3>
-        <p>Created and grew LoveVenetia as a digital brand, merging music and internet culture.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Stats & Achievements -->
-  <section id="stats">
-    <h2>Stats & Achievements</h2>
-    <div class="stats-grid">
-      <div class="stat">
-        <h3>3,950+</h3>
-        <p>Followers</p>
+    <!-- Contact Section -->
+    <section id="contact" class="panel">
+      <div class="noise-overlay"></div>
+      <div class="content-wrapper">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-container">
+          <div class="contact-text">
+            <p>Reach out for collaborations and projects.</p>
+            <div class="contact-item">
+              <span class="contact-label">Email:</span>
+              <a href="mailto:lovevenetia16@gmail.com" class="contact-value">lovevenetia16@gmail.com</a>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label">Socials:</span>
+              <div class="social-links">
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Twitter</a>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form">
+            <div class="form-group">
+              <input type="text" placeholder="Your Name" class="form-input">
+              <div class="input-line"></div>
+            </div>
+            <div class="form-group">
+              <input type="email" placeholder="Your Email" class="form-input">
+              <div class="input-line"></div>
+            </div>
+            <div class="form-group">
+              <textarea placeholder="Your Message" class="form-textarea"></textarea>
+              <div class="input-line"></div>
+            </div>
+            <button class="submit-btn">Send Message</button>
+          </div>
+        </div>
       </div>
-      <div class="stat">
-        <h3>426.7K+</h3>
-        <p>Streams</p>
-      </div>
-      <div class="stat">
-        <h3>4</h3>
-        <p>Live Events</p>
-      </div>
-      <div class="stat">
-        <h3>15+</h3>
-        <p>Creative Projects</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Reach out for collaborations and projects.</p>
-    <p>Email: lovevenetia16@gmail.com</p>
-    <p>Socials: <a href="#">Instagram</a> | <a href="#">Twitter</a></p>
-  </section>
+    </section>
+  </div>
 
   <footer>
     <p>&copy; 2025 Venetia | All Rights Reserved</p>
   </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
