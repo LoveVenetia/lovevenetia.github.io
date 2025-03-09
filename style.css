@@ -95,21 +95,13 @@ body {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes textReveal {
-  0%, 50% {
-    transform: translateX(-100%);
-  }
-  60%, 100% {
-    transform: translateX(100%);
-  }
+  0%, 50% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
 }
 
 /* Custom Cursor - Heart particles only */
@@ -382,7 +374,6 @@ body {
   background-color: var(--light-color);
   border-radius: 2px;
   animation: visualize 1.5s infinite;
-  animation-delay: calc(var(--i) * 0.2s);
 }
 
 .audio-visualizer span:nth-child(1) { --i: 0; }
@@ -489,18 +480,6 @@ body {
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  z-index: 3;
 }
 
 .mouse {
@@ -619,12 +598,13 @@ body {
   height: 250px;
   position: relative;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(20, 120, 220, 0.5), rgba(10, 30, 80, 0.9));
-  box-shadow: 0 0 60px rgba(0, 100, 255, 0.3), 
-              inset 0 0 60px rgba(0, 200, 255, 0.2);
+  background: radial-gradient(circle at 30% 30%, rgba(30, 144, 255, 0.7), rgba(0, 51, 102, 0.9));
+  box-shadow: 0 0 60px rgba(0, 100, 255, 0.4), 
+              inset 0 0 60px rgba(255, 255, 255, 0.15);
   overflow: hidden;
   transform-style: preserve-3d;
   perspective: 1000px;
+  animation: globeGlow 5s infinite ease-in-out;
 }
 
 .globe-grid {
@@ -635,12 +615,34 @@ body {
   height: 100%;
   border-radius: 50%;
   background-image: 
-    linear-gradient(rgba(100, 200, 255, 0.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(100, 200, 255, 0.2) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: center;
-  opacity: 0.3;
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 15px 15px;
+  opacity: 0.4;
   animation: rotateGrid 60s linear infinite;
+}
+
+.globe-grid::before,
+.globe-grid::after {
+  content: '';
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.globe-grid::before {
+  /* Equator */
+  width: 100%;
+  height: 2px;
+  top: 50%;
+  left: 0;
+}
+
+.globe-grid::after {
+  /* Prime Meridian */
+  width: 2px;
+  height: 100%;
+  top: 0;
+  left: 50%;
 }
 
 .globe-continents {
@@ -650,8 +652,8 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background-image: url("data:image/svg+xml,%3Csvg width='250' height='250' viewBox='0 0 250 250' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M60,40 Q80,20 100,35 Q120,40 125,50 Q130,75 125,85 Q110,100 100,110 Q85,115 75,105 Q65,90 55,85 Q50,70 60,40' fill='%23318CE7' fill-opacity='0.3'/%3E%3Cpath d='M140,60 Q160,45 180,50 Q190,65 195,85 Q185,100 170,95 Q155,85 145,75 Q140,65 140,60' fill='%23318CE7' fill-opacity='0.3'/%3E%3Cpath d='M110,120 Q130,130 155,125 Q180,115 190,125 Q195,140 185,150 Q165,155 145,145 Q130,140 115,145 Q105,135 110,120' fill='%23318CE7' fill-opacity='0.3'/%3E%3Cpath d='M50,140 Q70,135 85,145 Q100,155 95,170 Q80,180 65,175 Q55,165 50,140' fill='%23318CE7' fill-opacity='0.3'/%3E%3Cpath d='M140,170 Q160,165 175,175 Q185,190 175,200 Q160,205 145,195 Q135,180 140,170' fill='%23318CE7' fill-opacity='0.3'/%3E%3C/svg%3E");
-  opacity: 0.7;
+  background-image: url("data:image/svg+xml,%3Csvg width='250' height='250' viewBox='0 0 250 250' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50,40 Q70,30 85,45 Q100,40 110,50 Q130,55 120,70 Q110,90 95,95 Q85,105 70,100 Q50,95 45,80 Q40,60 50,40' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M140,50 Q160,40 175,55 Q190,50 200,65 Q195,80 180,85 Q165,90 150,80 Q145,65 140,50' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M30,130 Q45,125 65,140 Q80,145 75,160 Q65,175 50,170 Q35,160 30,130' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M135,120 Q155,115 170,125 Q190,130 180,155 Q165,170 140,160 Q130,140 135,120' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M140,170 Q160,165 175,180 Q170,200 155,205 Q145,195 140,170' fill='%2372B01D' fill-opacity='0.7'/%3E%3C/svg%3E");
+  opacity: 0.85;
   animation: rotateContinents 80s linear infinite;
 }
 
@@ -680,19 +682,20 @@ body {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   filter: blur(1px);
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
 }
 
 .globe-dot.highlight {
-  background-color: #00BFFF;
-  box-shadow: 0 0 8px #00BFFF, 0 0 16px #00BFFF;
+  background-color: #00FFFF;
+  box-shadow: 0 0 8px #00FFFF, 0 0 16px #00FFFF;
   width: 4px;
   height: 4px;
   z-index: 5;
 }
 
 .globe-dot.helsinki {
-  background-color: #ffffff;
-  box-shadow: 0 0 8px #ffffff, 0 0 16px #ffffff;
+  background-color: #FF5555;
+  box-shadow: 0 0 8px #FF5555, 0 0 16px #FF5555;
   width: 6px;
   height: 6px;
   z-index: 10;
@@ -722,11 +725,12 @@ body {
 
 .globe-connection {
   position: absolute;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.7), transparent);
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.7), transparent);
   transform-origin: 0 0;
   opacity: 0;
   animation: fadeInOut 3s infinite;
+  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
 }
 
 .globe-highlight {
@@ -747,7 +751,9 @@ body {
   width: calc(100% + 10px);
   height: calc(100% + 10px);
   border-radius: 50%;
-  background: radial-gradient(circle at center, transparent 50%, rgba(100, 200, 255, 0.2) 80%, rgba(100, 200, 255, 0) 100%);
+  background: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E"),
+              radial-gradient(circle at center, transparent 50%, rgba(255, 255, 255, 0.2) 80%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -782,51 +788,9 @@ body {
   animation-delay: 2s;
 }
 
+/* Hide the location label */
 .globe-location {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: var(--light-color);
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  transform: translate(20px, 20px);
-}
-
-.globe-location::before {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background-color: #00BFFF;
-  border-radius: 50%;
-  margin-right: 8px;
-  box-shadow: 0 0 5px #00BFFF;
-  animation: blink 2s infinite;
-}
-
-.globe-pin {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #ffffff;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #ffffff;
-  z-index: 10;
-}
-
-.globe-pin::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #ffffff;
+  display: none;
 }
 
 @keyframes rotateGrid {
@@ -863,12 +827,14 @@ body {
   }
 }
 
-@keyframes blink {
+@keyframes globeGlow {
   0%, 100% {
-    opacity: 0.7;
+    box-shadow: 0 0 60px rgba(0, 100, 255, 0.4), 
+                inset 0 0 60px rgba(255, 255, 255, 0.15);
   }
   50% {
-    opacity: 1;
+    box-shadow: 0 0 80px rgba(0, 150, 255, 0.6), 
+                inset 0 0 80px rgba(255, 255, 255, 0.25);
   }
 }
 
@@ -908,21 +874,6 @@ body {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-}
-
-/* No animations for project cards */
-.project-card::before {
-  content: none !important;
-  display: none !important;
-  animation: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-}
-
-@keyframes rotate {
-  100% {
-    transform: none;
-  }
 }
 
 .project-card:hover {
@@ -1557,6 +1508,36 @@ footer {
     width: 95%;
     max-height: 80vh;
   }
+  
+  .panel {
+    padding: 40px 0;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .content-wrapper {
+    padding: 20px;
+    margin: 40px auto;
+  }
+  
+  .about-content, 
+  .stats-container, 
+  .projects-container,
+  .contact-container {
+    gap: 40px;
+  }
+  
+  .about-content {
+    margin-top: 40px;
+  }
+  
+  .digital-globe-container {
+    margin: 20px auto;
+  }
+  
+  .about-text {
+    padding: 0 20px;
+  }
 }
 
 /* Animations */
@@ -1589,227 +1570,80 @@ footer {
 }
 
 #landing {
-  position: relative !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  text-align: center !important;
-  height: 100vh !important;
-  width: 100vw !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .centered-content {
-  position: absolute !important;
-  top: 50% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  width: 90% !important;
-  max-width: 800px !important;
-  text-align: center !important;
-  padding: 0 !important;
-  z-index: 5 !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
+  padding: 0;
+  z-index: 5;
 }
 
 #landing .glitch, 
 #landing .subtitle, 
 #landing .intro-text {
-  width: 100% !important;
-  text-align: center !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Fixed scroll indicator position */
-.scroll-indicator {
-  position: absolute !important;
-  bottom: 40px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  gap: 10px !important;
-  z-index: 10 !important;
-}
-
-/* Fix mobile clipping issues */
-@media (max-width: 768px) {
-  .panel {
-    padding: 40px 0 !important;
-    height: auto !important;
-    min-height: 100vh !important;
-  }
-  
-  .content-wrapper {
-    padding: 20px !important;
-    margin: 40px auto !important;
-  }
-  
-  .about-content, 
-  .stats-container, 
-  .projects-container,
-  .contact-container {
-    gap: 40px !important;
-  }
-  
-  .about-content {
-    margin-top: 40px !important;
-  }
-  
-  .digital-globe-container {
-    margin: 20px auto !important;
-  }
-  
-  .about-text {
-    padding: 0 20px !important;
-  }
-}
-
-/* Make sure project cards have no animations */
-.project-card::before {
-  display: none !important;
-  content: none !important;
-  animation: none !important;
-  opacity: 0 !important;
-}
-
-/* Override any rotate animations */
-@keyframes rotate {
-  0%, 100% { transform: none !important; }
-}
-
-/* Add these styles to the end of your CSS file to override the globe styling */
-
-/* More Earth-like Digital Globe */
-.digital-globe {
-  background: radial-gradient(circle at 30% 30%, rgba(30, 144, 255, 0.7), rgba(0, 51, 102, 0.9)) !important;
-  box-shadow: 0 0 60px rgba(0, 100, 255, 0.4), 
-              inset 0 0 60px rgba(255, 255, 255, 0.15) !important;
-}
-
-.globe-continents {
-  background-image: url("data:image/svg+xml,%3Csvg width='250' height='250' viewBox='0 0 250 250' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50,40 Q70,30 85,45 Q100,40 110,50 Q130,55 120,70 Q110,90 95,95 Q85,105 70,100 Q50,95 45,80 Q40,60 50,40' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M140,50 Q160,40 175,55 Q190,50 200,65 Q195,80 180,85 Q165,90 150,80 Q145,65 140,50' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M30,130 Q45,125 65,140 Q80,145 75,160 Q65,175 50,170 Q35,160 30,130' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M135,120 Q155,115 170,125 Q190,130 180,155 Q165,170 140,160 Q130,140 135,120' fill='%2372B01D' fill-opacity='0.7'/%3E%3Cpath d='M140,170 Q160,165 175,180 Q170,200 155,205 Q145,195 140,170' fill='%2372B01D' fill-opacity='0.7'/%3E%3C/svg%3E") !important;
-  opacity: 0.85 !important;
-}
-
-.globe-grid {
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px) !important;
-  background-size: 15px 15px !important;
-  opacity: 0.4 !important;
-}
-
-/* Add equator and prime meridian lines */
-.globe-grid::before,
-.globe-grid::after {
-  content: '' !important;
-  position: absolute !important;
-  background-color: rgba(255, 255, 255, 0.3) !important;
-}
-
-.globe-grid::before {
-  /* Equator */
-  width: 100% !important;
-  height: 2px !important;
-  top: 50% !important;
-  left: 0 !important;
-}
-
-.globe-grid::after {
-  /* Prime Meridian */
-  width: 2px !important;
-  height: 100% !important;
-  top: 0 !important;
-  left: 50% !important;
-}
-
-/* Add cloud layer */
-.globe-atmosphere {
-  background: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.3'/%3E%3C/svg%3E"),
-              radial-gradient(circle at center, transparent 50%, rgba(255, 255, 255, 0.2) 80%, rgba(255, 255, 255, 0) 100%) !important;
-  opacity: 0.5 !important;
-}
-
-/* Enhanced connection lines */
-.globe-connection {
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.7), transparent) !important;
-  height: 1.5px !important;
-  box-shadow: 0 0 5px rgba(0, 255, 255, 0.5) !important;
-}
-
-/* Enhanced dots */
-.globe-dot {
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.7) !important;
-}
-
-.globe-dot.highlight {
-  background-color: #00FFFF !important;
-  box-shadow: 0 0 8px #00FFFF, 0 0 16px #00FFFF !important;
-}
-
-.globe-dot.helsinki {
-  background-color: #FF5555 !important;
-  box-shadow: 0 0 8px #FF5555, 0 0 16px #FF5555 !important;
-}
-
-/* Hide the location label if that's the blue dot you mentioned */
-.globe-location {
-  display: none !important;
-}
-
-/* Add a subtle pulsing glow to the globe */
-@keyframes globeGlow {
-  0%, 100% {
-    box-shadow: 0 0 60px rgba(0, 100, 255, 0.4), 
-                inset 0 0 60px rgba(255, 255, 255, 0.15);
-  }
-  50% {
-    box-shadow: 0 0 80px rgba(0, 150, 255, 0.6), 
-                inset 0 0 80px rgba(255, 255, 255, 0.25);
-  }
-}
-
-.digital-globe {
-  animation: globeGlow 5s infinite ease-in-out !important;
-}
-/* Add these styles to the very end of your style.css file */
-
-/* Super-targeted fix for scroll indicator */
 #landing .scroll-indicator {
-  position: fixed !important;
-  bottom: 30px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 100 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 10px !important;
-  width: auto !important;
-  height: auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  position: absolute;
+  top: 50%;
+  right: 40px;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Make sure the mouse and arrow are visible */
 #landing .scroll-indicator .mouse,
 #landing .scroll-indicator .arrow {
-  opacity: 1 !important;
-  visibility: visible !important;
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Add a subtle highlight around the scroll indicator to make it stand out */
 #landing .scroll-indicator::before {
   content: '';
   position: absolute;
-  top: -5px;
-  left: -5px;
-  right: -5px;
-  bottom: -5px;
-  background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 70%);
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 70%);
   z-index: -1;
   border-radius: 50%;
+}
+
+/* Add a subtle text label above the scroll indicator */
+#landing .scroll-indicator::after {
+  content: 'Scroll';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  opacity: 0.7;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
