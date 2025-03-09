@@ -2,40 +2,135 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize GSAP ScrollTrigger
   gsap.registerPlugin(ScrollTrigger);
   
-  // Custom cursor
-  const cursor = document.querySelector('.cursor');
-  const cursorFollower = document.querySelector('.cursor-follower');
+  // Remove old cursor elements
+  const oldCursor = document.querySelector('.cursor');
+  const oldCursorFollower = document.querySelector('.cursor-follower');
+  if (oldCursor) oldCursor.remove();
+  if (oldCursorFollower) oldCursorFollower.remove();
+  
+  // Create heat trail cursor effect
+  const cursorContainer = document.createElement('div');
+  cursorContainer.className = 'cursor-container';
+  document.body.appendChild(cursorContainer);
+  
+  // Create cursor dot
+  const cursor = document.createElement('div');
+  cursor.className = 'cursor-dot';
+  document.body.appendChild(cursor);
+  
+  // Track mouse position
+  let mouseX = 0;
+  let mouseY = 0;
+  
+  // Particles array
+  const particles = [];
+  
+  // Tracking previous positions for smoother trail
+  const previousPositions = [];
+  const maxPrevPositions = 5;
   
   document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, {
-      x: e.clientX,
-      y: e.clientY,
-      duration: 0.1
-    });
+    mouseX = e.clientX;
+    mouseY = e.clientY;
     
-    gsap.to(cursorFollower, {
-      x: e.clientX,
-      y: e.clientY,
-      duration: 0.3
-    });
+    // Update cursor dot position
+    cursor.style.left = `${mouseX}px`;
+    cursor.style.top = `${mouseY}px`;
+    
+    // Store previous positions for trail effect
+    previousPositions.unshift({ x: mouseX, y: mouseY });
+    if (previousPositions.length > maxPrevPositions) {
+      previousPositions.pop();
+    }
+    
+    // Create heat particle at an interval
+    if (Math.random() < 0.3) {
+      createHeatParticle();
+    }
   });
+  
+  // Create heat particle
+  function createHeatParticle() {
+    // Use a previous position for smoother trail
+    const index = Math.floor(Math.random() * Math.min(previousPositions.length, 3));
+    const position = previousPositions[index] || { x: mouseX, y: mouseY };
+    
+    const particle = document.createElement('div');
+    particle.className = 'heat-particle';
+    
+    // Randomize particle properties
+    const size = Math.random() * 15 + 5;
+    const duration = Math.random() * 1 + 0.5;
+    const xOffset = (Math.random() - 0.5) * 20;
+    const yOffset = (Math.random() - 0.5) * 20;
+    
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${position.x + xOffset}px`;
+    particle.style.top = `${position.y + yOffset}px`;
+    
+    // Add to DOM
+    cursorContainer.appendChild(particle);
+    
+    // Animate and remove
+    gsap.to(particle, {
+      opacity: 0,
+      scale: 0,
+      duration: duration,
+      onComplete: () => {
+        particle.remove();
+      }
+    });
+  }
+  
+  // Create heart particle on click
+  document.addEventListener('click', (e) => {
+    for (let i = 0; i < 5; i++) {
+      createHeartParticle(e.clientX, e.clientY);
+    }
+  });
+  
+  function createHeartParticle(x, y) {
+    const heart = document.createElement('div');
+    heart.className = 'heart-particle';
+    heart.innerHTML = '♥';
+    
+    // Randomize properties
+    const size = Math.random() * 20 + 10;
+    const duration = Math.random() * 1.5 + 1;
+    const xOffset = (Math.random() - 0.5) * 60;
+    const yOffset = (Math.random() - 0.5) * 60;
+    
+    heart.style.left = `${x}px`;
+    heart.style.top = `${y}px`;
+    heart.style.fontSize = `${size}px`;
+    
+    // Add to DOM
+    cursorContainer.appendChild(heart);
+    
+    // Animate and remove
+    gsap.to(heart, {
+      x: xOffset,
+      y: yOffset - 100,
+      opacity: 0,
+      duration: duration,
+      ease: "power2.out",
+      onComplete: () => {
+        heart.remove();
+      }
+    });
+  }
   
   // Custom cursor effects on interactive elements
   const interactiveElements = document.querySelectorAll('a, button, .project-card, .stat-card, input, textarea');
   
   interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-      cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
-      cursorFollower.style.backgroundColor = 'rgba(0, 201, 255, 0.1)';
-      cursorFollower.style.border = 'none';
+      cursor.classList.add('cursor-hover');
     });
     
     el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
-      cursorFollower.style.backgroundColor = 'transparent';
-      cursorFollower.style.border = '1px solid var(--accent-color)';
+      cursor.classList.remove('cursor-hover');
     });
   });
   
